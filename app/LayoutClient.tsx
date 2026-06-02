@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Navbar from '@/app/components/Navbar';
+import Image from 'next/image';
 
 export default function LayoutClient({
   children,
@@ -11,9 +12,22 @@ export default function LayoutClient({
   const [isDark, setIsDark] = useState(false);
 
   return (
-    <div className={isDark ? 'bg-gray-900 text-white' : 'bg-white text-black'}>
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
-      {children}
+    <div className="relative w-full min-h-screen overflow-hidden">
+      
+      {/* Background Image */}
+      <Image
+        src={isDark ? '/images/night.jpg' : '/images/day.jpg'}
+        alt={isDark ? 'Night City' : 'Day City'}
+        fill
+        priority
+        className="object-cover"
+      />
+      
+        {/* Main Content */}
+      <div className="relative z-10">
+        <Navbar isDark={isDark} setIsDark={setIsDark} />
+        {children}
+      </div>
     </div>
   );
 }

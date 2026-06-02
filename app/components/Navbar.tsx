@@ -11,35 +11,29 @@ export default function Navbar({isDark, setIsDark}: NavbarProps){
     //Function to make sure navbar is responsive and react remembers the state of the navbar
     
     return (
-        <nav className={isDark ? 'bg-gray-900 text-white' : 'bg-white text-black'}>
-            <div className= "flex justify-between items-center p-6">
+        <nav className="relative z-20 bg-black bg-opacity-30 backdrop-blur-sm">
+      <div className="flex justify-between items-center p-6">
+        
+        {/* Your Name */}
+        <Link href="/" className="text-2xl font-bold text-white drop-shadow-lg">
+          Karan
+        </Link>
 
-                {/* Name */}
-                <Link href="/" className="text-2xl font-bold">
-                    Karan
-                </Link>
+        {/* Navigation Links */}
+        <div className="flex gap-6">
+          <Link href="/about" className="text-white hover:opacity-70 drop-shadow-lg">About</Link>
+          <Link href="/projects" className="text-white hover:opacity-70 drop-shadow-lg">Projects</Link>
+          <Link href="/contact" className="text-white hover:opacity-70 drop-shadow-lg">Contact</Link>
+        </div>
 
-                {/* Links */}
-                <div className="flex gap-6">
-                    <Link href="/about" className="hover:opacity-70">
-                        About
-                    </Link>
-                    <Link href="/projects" className="hover:opacity-70">
-                        Projects
-                    </Link>
-                    <Link href="/contact" className="hover:opacity-70">
-                        Contact
-                    </Link>
-                </div>
-
-                {/* Dark Mode Toggle */}
-                <button 
-                    onClick={() => setIsDark(!isDark)}
-                    className="px-4 py-2 bg-blue-500 text-white rounded"
-                >
-                    {isDark ? 'Light Mode' : 'Dark Mode'}
-                </button>
-            </div>
-        </nav>
+        {/* Dark Mode Toggle Button */}
+        <button
+          onClick={() => setIsDark(!isDark)}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 drop-shadow-lg"
+        >
+          {isDark ? '☀️ Light' : '🌙 Dark'}
+        </button>
+      </div>
+    </nav>
     )
 }
