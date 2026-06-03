@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Navbar from '@/app/components/Navbar';
+import KatanaWheel from '@/app/components/KatanaWheel';
 import Image from 'next/image';
 
 export default function LayoutClient({
@@ -27,6 +28,12 @@ export default function LayoutClient({
       <div className="relative z-10">
         <Navbar isDark={isDark} setIsDark={setIsDark} />
         {children}
+      </div>
+
+
+      {/* Katana Wheel */}
+      <div className="fixed bottom-8 right-8 z-20">
+        <KatanaWheel />
       </div>
     </div>
   );
