@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 import Navbar from '@/app/components/Navbar';
-import KatanaWheel from '@/app/components/KatanaWheel';
-import Image from 'next/image';
 
 export default function LayoutClient({
   children,
@@ -13,28 +11,17 @@ export default function LayoutClient({
   const [isDark, setIsDark] = useState(false);
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden">
-      
-      {/* Background Image */}
-      <Image
-        src={isDark ? '/images/night.jpg' : '/images/day.jpg'}
-        alt={isDark ? 'Night City' : 'Day City'}
-        fill
-        priority
-        className="object-cover"
-      />
-      
-        {/* Main Content */}
-      <div className="relative z-10">
-        <Navbar isDark={isDark} setIsDark={setIsDark} />
-        {children}
-      </div>
-
-
-      {/* Katana Wheel */}
-      <div className="fixed bottom-8 right-8 z-20">
-        <KatanaWheel />
-      </div>
+    <div
+      style={{
+        width: '100%',
+        minHeight: '100vh',
+        backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
+        color: isDark ? '#ffffff' : '#000000',
+        transition: 'background-color 0.3s ease, color 0.3s ease',
+      }}
+    >
+      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <main>{children}</main>
     </div>
   );
 }

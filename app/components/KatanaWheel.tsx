@@ -1,50 +1,62 @@
 'use client';
 
-import Link from 'next/link';
+import KatanaHandle from './KatanaHandle';
 import { useState } from 'react';
 
-export default function KatanaWheel() {
-    const [isHovered, setIsHovered] = useState(false);
+interface KatanaWheelProps {
+  onSlice: (path: string) => void;
+}
 
-    const pages = [
-        { name: 'Home', path: '/', icon: '⚔️' },
-        { name: 'About', path: '/about', icon: '⚔️' },
-        { name: 'Projects', path: '/projects', icon: '⚔️' },
-        { name: 'Contact', path: '/contact', icon: '⚔️' },
-    ];
+export default function KatanaWheel({ onSlice }: KatanaWheelProps) {
+  const [isStopped, setIsStopped] = useState(false);
 
-    return (
-        <div
-            className="relative w-64 h-64 flex items-center justify-center"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
-            {/* 4 katan icons in a circle */}
-            {pages.map((page, index) =>{
-                const angle = (index * 360 / pages.length);
-                return (
-                    <Link
-                    key={page.path}
-                    href={page.path}
-                    className="absolute w-16 h-16 flex items-center justify-center cursor-pointer"
-                    style={{
-                        transform: `rotate(${angle}deg) translateY(-120px) rotate(-${angle}deg)`,
-                        left: '50%',
-                        top: '50%',
-                        marginLeft: '-32px',
-                        marginTop: '-32px',
-                    }}
-                    >
-                    <div className="text-4xl hover:scale-125 transition-transform">
-                        {page.icon}
-                    </div>
-                    <span className="absolute bottom-full mb-2 text-sm font-bold whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity">
-                        {page.name}
-                    </span>
-                    </Link>
-                );
-            })}
-        </div>
-    )
+  const pages = [
+    { name: 'Home', path: '/', index: 0 },
+    { name: 'About', path: '/about', index: 1 },
+    { name: 'Projects', path: '/projects', index: 2 },
+    { name: 'Contact', path: '/contact', index: 3 },
+  ];
 
+  const wheelRadius = 160;
+
+  return (
+    <div
+      className="relative w-96 h-96 flex items-center justify-center"
+      onMouseEnter={() => setIsStopped(true)}
+      onMouseLeave={() => setIsStopped(false)}
+    >
+      {/* Rotating wheel */}
+      <div
+        className={`absolute w-full h-full transition-all duration-300 ${
+          isStopped ? '' : 'animate-spin'
+        }`}
+        style={{
+          animationDuration: '20s',
+          animationDirection: 'reverse',
+          animationPlayState: isStopped ? 'paused' : 'running',
+        }}
+      >
+        {/* Katana handles */}
+        {pages.map((page) => {
+          const angle = (page.index * 360) / pages.length;
+          return (
+            <KatanaHandle
+              key={page.path}
+              name={page.name}
+              path={page.path}
+              angle={angle}
+              distance={wheelRadius}
+              onSlice={onSlice}
+            />
+          );
+        })}
+      </div>
+
+      {/* Center glow */}
+      <div className="absolute w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full shadow-2xl" />
+
+      {/* Wheel border glow */}
+      <div className="absolute inset-0 rounded-full border-2 border-blue-400 opacity-40 shadow-lg" />
+    </div>
+  );
 }
