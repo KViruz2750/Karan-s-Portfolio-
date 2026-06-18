@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Navbar from '@/app/components/Navbar';
+import LoadingScreen from '@/app/components/LoadingScreen';
+import InteractiveBackground from '@/app/components/InteractiveBackground';
 
 export default function LayoutClient({
   children,
@@ -9,6 +11,7 @@ export default function LayoutClient({
   children: React.ReactNode;
 }) {
   const [isDark, setIsDark] = useState(false);
+  const [showLoading, setShowLoading] = useState(true);
 
   return (
     <div
@@ -20,8 +23,17 @@ export default function LayoutClient({
         transition: 'background-color 0.3s ease, color 0.3s ease',
       }}
     >
+      {/* Interactive Background */}
+      <InteractiveBackground isDark={isDark} />
+
+      {/* Loading Screen */}
+      {showLoading && (
+        <LoadingScreen onLoadComplete={() => setShowLoading(false)} />
+      )}
+
+      {/* Page Content */}
       <Navbar isDark={isDark} setIsDark={setIsDark} />
-      <main>{children}</main>
+      <main style={{ position: 'relative', zIndex: 1 }}>{children}</main>
     </div>
   );
 }

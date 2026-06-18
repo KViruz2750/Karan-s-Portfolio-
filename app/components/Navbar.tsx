@@ -42,17 +42,31 @@ export default function Navbar({ isDark, setIsDark }: NavbarProps) {
       <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
         <div
           style={{
-            fontSize: '1.5rem',
-            fontWeight: '700',
+            fontSize: '1.3rem',
+            fontWeight: '800',
+            fontFamily: '"Playfair Display", serif',
             background: 'linear-gradient(135deg, #0064ff, #0047cc)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
             cursor: 'pointer',
-            letterSpacing: '-0.5px',
+            letterSpacing: '2px',
+            padding: '0.5rem 1rem',
+            border: '2px solid #0064ff',
+            borderRadius: '8px',
+            display: 'inline-block',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 5px 20px rgba(0, 100, 255, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          Karan
+          KV
         </div>
       </Link>
 
