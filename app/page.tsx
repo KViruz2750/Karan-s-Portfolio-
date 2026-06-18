@@ -18,14 +18,14 @@ export default function Home() {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'center',
+          //justifyContent: 'center',
           animation: 'fadeInLeft 0.8s ease-out',
         }}
       >
         <div
           style={{
-            width: '300px',
-            height: '300px',
+            width: '400px',
+            height: '400px',
             borderRadius: '50%',
             backgroundColor: '#d0e0ff',
             border: '3px solid #0064ff',
